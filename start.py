@@ -2,11 +2,12 @@ import os
 import time
 import subprocess
 from loguru import logger
-from git import Repo
+# from git import Repo
 
 import configparser
 config = configparser.ConfigParser()
 config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'conf.ini'))
+logger.add(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'log.log'), rotation="10 MB", retention="10 days")
 
 def main():
     logger.debug('fetch external IP')
