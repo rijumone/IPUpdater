@@ -29,9 +29,10 @@ def upload_ip(ip):
     logger.info('updating IP to remote location')
     with open(os.path.join(config['LOCAL_REPO']['PATH'], config['LOCAL_REPO']['NODE_FILE']), 'w') as out:
         out.write(ip)
-    subprocess.run(['cd', config['LOCAL_REPO']['PATH']])
-    subprocess.check_output(['git', 'add', os.path.join(config['LOCAL_REPO']['PATH'], config['LOCAL_REPO']['NODE_FILE'])])
-    subprocess.check_output(['git', 'commit', '-m', 'updating external IP at {}'.format(int(time.time()))])
+    # subprocess.run(['cd', config['LOCAL_REPO']['PATH']])
+    subprocess.run(['git', 'add', os.path.join(config['LOCAL_REPO']['PATH'], config['LOCAL_REPO']['NODE_FILE'])], cwd=config['LOCAL_REPO']['PATH'])
+    subprocess.run(['git', 'commit', '-m', 'updating external IP at {}'.format(int(time.time()))], cwd=config['LOCAL_REPO']['PATH'])
+    subprocess.run(['git', 'push', '-v', ], cwd=config['LOCAL_REPO']['PATH'])
 
 if __name__ == '__main__':
     main()
