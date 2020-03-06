@@ -15,13 +15,13 @@ def main():
     # print(ip)
     logger.debug('checking IP on remote path')
     remote_location_ip = subprocess.check_output(['curl', config['REMOTE_IP']['URL_PREFIX'] + config['REMOTE_IP']['NODE_FILE']]).decode().strip()
-    # if 'IP: ' in remote_location_ip:
-    #     remote_location_ip = remote_location_ip.split('IP: ')[1].split(' ')[0]
-    if remote_location_ip == ip:
-        logger.info('IP updated to remote location is same as current external IP')
-        return
-    else:
-        upload_ip(ip)    
+    if '.' in remote_location_ip:
+        # remote_location_ip = remote_location_ip.split('IP: ')[1].split(' ')[0]
+        if remote_location_ip == ip:
+            logger.info('IP updated to remote location is same as current external IP')
+            return
+        else:
+            upload_ip(ip)    
     else:
         logger.info('IP not updated to remote location')
         upload_ip(ip)
